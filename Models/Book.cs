@@ -12,10 +12,14 @@ namespace eLibrary.Models
         public List<Author> Authors { get; set; } = new();
         public List<Genre> Genres { get; set; } = new();
         public string? Age { get; set; } = string.Empty;
-        public int PublishedYear { get; set; }
+        public int PublicationYear { get; set; }
+        public string? Series { get; set; }
+        public int? SeriesOrder { get; set; }
         public string? CoverImage { get; set; } = string.Empty;
         public string Isbn { get; set; } = string.Empty;
-        public int Quantity { get; set; }
+        
+        public int TotalCopies { get; set; }
+        public int AvailableCopies { get; set; }
         public string? Shelf { get; set; } = string.Empty;
     }
 }

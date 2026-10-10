@@ -1,4 +1,4 @@
-User(UserId [PK], FirstName, LastName, Grade, ClassLetter, UserName, PasswordHash)
+User(UserId [PK], FirstName, LastName, Grade, ClassLetter, UserName [UQ], PasswordHash)
 
 Author(AuthorId [PK], Name, BirthYear)
 

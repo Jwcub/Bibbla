@@ -15,12 +15,11 @@ namespace eLibrary.Models
     }
     public class Reservation
     {
-        public int ResId { get; set; }
+        public int ReservationId { get; set; }
         public int UserId { get; set; }
         public User User { get; set; } = null!;
         public int BookId { get; set; }
         public DateTime ResDate { get; set; } = DateTime.UtcNow;
         public ReservationStatus ResStatus { get; set; } = ReservationStatus.Pending;
-
     }
 }

@@ -248,6 +248,11 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
+# SQLite databasfiler
+*.db
+*.db-shm
+*.db-wal
+
 # Including strong name files can present a security risk
 # (https://github.com/github/gitignore/pull/2483#issue-259490424)
 #*.snk
@@ -292,6 +297,10 @@ FakesAssemblies/
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
 node_modules/
+
+# Byggda filer
+bin/
+obj/
 
 # Visual Studio 6 build log
 *.plg
