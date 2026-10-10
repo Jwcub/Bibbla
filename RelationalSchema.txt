@@ -1,0 +1,15 @@
+User(UserId [PK], FirstName, LastName, Grade, ClassLetter, UserName, PasswordHash)
+
+Author(AuthorId [PK], Name, BirthYear)
+
+Genre(GenreId [PK], Name)
+
+Book(BookId [PK], Title, Isbn, PublishedYear, CoverImage, TotalCopies)
+
+Loan(LoanId [PK], UserId [FK], BookId [FK], LoanDate, DueDate, ReturnedDate)
+
+Reservation(ReservationId [PK], UserId [FK], BookId [FK], ReservedDate, Status)
+
+BookAuthor(BookId [PK, FK], AuthorId [PK, FK])
+
+BookGenre(BookId [PK, FK], GenreId [PK, FK])
