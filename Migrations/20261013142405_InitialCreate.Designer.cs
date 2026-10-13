@@ -11,7 +11,7 @@ using eLibrary.Data;
 namespace eLibrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261010145411_InitialCreate")]
+    [Migration("20261013142405_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -78,6 +78,9 @@ namespace eLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Age")
                         .HasColumnType("TEXT");
 
@@ -85,6 +88,10 @@ namespace eLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CoverImage")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Isbn")

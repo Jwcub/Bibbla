@@ -1,1 +1,85 @@
 @import "tailwindcss";
+
+@theme {
+  /* ===== Färger: ytor och bakgrund ===== */
+  --color-background: #fdf9f0;
+  --color-on-surface: #1c1c17;
+  --color-surface-container-low: #f7f3ea;
+  --color-primary: #78ac79;
+
+  /* ===== Typografi ===== */
+  --font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --headline-xl-size: 44px;
+  --headline-xl-weight: 800;
+  --headline-xl-line-height: 52px;
+  --headline-xl-letter-spacing: 0px;
+
+  --headline-xl-mobile-size: 32px;
+  --headline-xl-mobile-weight: 800;
+  --headline-xl-mobile-line-height: 40px;
+  --headline-xl-mobile-letter-spacing: 0px;
+
+  --headline-lg-size: 32px;
+  --headline-lg-weight: 800;
+  --headline-lg-line-height: 40px;
+  --headline-lg-letter-spacing: 0px;
+
+  --headline-lg-mobile-size: 26px;
+  --headline-lg-mobile-weight: 800;
+  --headline-lg-mobile-line-height: 34px;
+  --headline-lg-mobile-letter-spacing: 0px;
+
+  --headline-md-size: 24px;
+  --headline-md-weight: 700;
+  --headline-md-line-height: 32px;
+  --headline-md-letter-spacing: 0px;
+
+  --body-lg-size: 20px;
+  --body-lg-weight: 600;
+  --body-lg-line-height: 30px;
+  --body-lg-letter-spacing: 0.2px;
+
+  --body-md-size: 18px;
+  --body-md-weight: 500;
+  --body-md-line-height: 26px;
+  --body-md-letter-spacing: 0.2px;
+
+  --label-lg-size: 20px;
+  --label-lg-weight: 800;
+  --label-lg-line-height: 24px;
+  --label-lg-letter-spacing: 0.4px;
+
+  --label-md-size: 16px;
+  --label-md-weight: 700;
+  --label-md-line-height: 22px;
+  --label-md-letter-spacing: 0.3px;
+
+  /* ===== Rundningar ===== */
+  --radius-sm: 0.5rem;
+  --radius: 1rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+
+  /* ===== Avstånd ===== */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.25rem;
+  --space-xl: 3.5rem;
+  --gutter: 1.5rem;
+  --margin: 1.5rem;
+  --gutter-desktop: 2rem;
+  --margin-desktop: 3rem;
+}
+
+@layer base {
+  h1 {
+    @apply text-3xl font-family font-bold tracking-tight text-on-surface sm:text-4xl;
+  }
+  h2 {
+    @apply text-xl font-family font-bold tracking-tight text-on-surface sm:text-xl;
+  }
+}

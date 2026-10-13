@@ -3,23 +3,108 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - eLibrary</title>
+    <title>@ViewData["Title"]</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/eLibrary.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        
-    </header>
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
+<body class="min-h-screen flex flex-col bg-background">
+    <header class="w-full border-b border-outline-variant bg-surface">
+        <div class="max-w-container-max mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between md:grid md:grid-cols-3">
+            
+            <!-- Logotyp -->
+            <div class="text-on-surface flex items-center">
+                <span class="font-bold">Bibbla</span><span>&nbsp;| Bergaskolan</span>
+            </div>
 
-    <footer>
-        <div class="container">
+            <!-- Meny desktop -->
+            <nav class="hidden md:flex md:justify-center">
+                <ul class="flex gap-6 text-on-surface font-medium whitespace-nowrap">
+                    <li><a asp-page="/Index" class="hover:text-teal-600 transition">Sök böcker</a></li>
+                    <li><a asp-page="/My-books" class="hover:text-primary transition">Mina böcker</a></li>
+                    <li><a asp-page="/My-Page" class="hover:text-primary transition">Min sida</a></li>
+                </ul>
+            </nav>
+
+            <!-- Hamburgermeny-knapp -->
+            <div class="flex items-center justify-end">
+                <button 
+                    type="button" 
+                    id="mobile-menu-btn"
+                    aria-label="Öppna meny" 
+                    aria-expanded="false"
+                    class="md:hidden p-2 text-on-surface hover:bg-surface-container rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    
+                    <svg id="icon-open" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    
+                    <svg id="icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Login / Logout-knapp desktop -->
+                <div class="hidden md:block">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-page="/Account/Logout" class="inline">
+                            <button type="submit" 
+                                    class="rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
+                                Logga ut
+                            </button>
+                        </form>
+                    } 
+                    else
+                    {
+                        <a asp-page="/Account/Login" 
+                        class="rounded-lg bg-teal-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700">
+                            Logga in
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobilmeny (Dropdown) -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-outline-variant bg-surface px-4 pt-3 pb-5 space-y-4">
+            <nav>
+                <ul class="flex flex-col gap-3 text-base font-medium text-on-surface">
+                    <li><a href="" class="block py-1 hover:text-primary">Hitta bok</a></li>
+                    <li><a href="" class="block py-1 hover:text-primary">Mina böcker</a></li>
+                    <li><a href="" class="block py-1 hover:text-primary">Min sida</a></li>
+                </ul>
+            </nav>
+
+            <div class="pt-3 border-t border-outline-variant">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <form method="post" asp-page="/Account/Logout" class="block">
+                        <button type="submit" 
+                                class="w-full text-center rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
+                            Logga ut
+                        </button>
+                    </form>
+                } 
+                else
+                {
+                    <a asp-page="/Account/Login" 
+                    class="block w-full text-center rounded-lg bg-teal-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700">
+                        Logga in
+                    </a>
+                }
+            </div>
+        </div>
+    </header>
+
+     <main role="main" class="flex-1 p-6 sm:py-8 md:py-10">
+        <div class="max-w-240 mx-auto w-full flex flex-col px-4 sm:px-6 lg:px-8 gap-5">
+            @RenderBody()
+        </div>
+    </main>
+   
+    <footer class="bg-surface-container">
+        <div class="max-w-container-max mx-auto w-full bg-surface-container-low p6 sm:px-6 lg:px-8">
             &copy; 2026 - eLibrary - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
@@ -29,3 +114,19 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<!-- Meny script -->
+<script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+
+    btn.addEventListener('click', () => {
+        const isOpen = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', !isOpen);
+    });
+</script>

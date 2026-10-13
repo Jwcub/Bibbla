@@ -31,11 +31,24 @@ app.MapRazorPages()
    .WithStaticAssets();
 
 // Lägg till testdata (seed)
-using (var scope = app.Services.CreateScope())
+try
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<AppDbContext>();
-    await DbInitializer.InitializeAsync(context);
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<AppDbContext>();
+        await DbInitializer.InitializeAsync(context);
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine("---------------------------------------------");
+    Console.WriteLine($"FEL VID SEEDING: {ex.Message}");
+    if (ex.InnerException != null)
+    {
+        Console.WriteLine($"DETALJER: {ex.InnerException.Message}");
+    }
+    Console.WriteLine("---------------------------------------------");
 }
 
 app.Run();

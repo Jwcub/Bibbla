@@ -75,6 +75,9 @@ namespace eLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Age")
                         .HasColumnType("TEXT");
 
@@ -82,6 +85,10 @@ namespace eLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CoverImage")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Isbn")

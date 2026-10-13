@@ -1,0 +1,32 @@
+﻿@page "/books/{title}"
+@model eLibrary.Pages.Books.DetailsModel
+@{
+    ViewData["Title"] = Model.Book?.Title ?? "Bokdetaljer";
+}
+
+    @if (Model.Book == null)
+    {
+        <div class="rounded-xl border border-red-200 bg-red-50 p-6 text-center text-red-700">
+            Boken kunde inte hittas.
+        </div>
+    }
+    else
+    {
+                    <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+                        @Model.Book.Title
+                    </h1>
+                    
+                    <p class="text-lg text-slate-600 mt-1">
+                        av <span class="font-medium text-slate-800">@(Model.Book.Authors.Any()
+                        ? string.Join(", ", Model.Book.Authors.Select(a => $"{a.FirstName} {a.LastName}"))
+                        : "Okänd författare")</span>
+                    </p>
+
+                        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            Beskrivning
+                        </h2>
+                        <p class="mt-2 text-slate-700 leading-relaxed">
+                            @Model.Book.Description
+                        </p>
+    }
+

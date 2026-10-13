@@ -14,4 +14,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" />
   </ItemGroup>
 
+<ItemGroup>
+  <Watch Remove="**/*.db" />
+  <Watch Remove="**/*.db-shm" />
+  <Watch Remove="**/*.db-wal" />
+</ItemGroup>
+
 </Project>

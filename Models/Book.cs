@@ -9,6 +9,7 @@ namespace eLibrary.Models
     {
         public int BookId { get; set; }
         public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public List<Author> Authors { get; set; } = new();
         public List<Genre> Genres { get; set; } = new();
         public string? Age { get; set; } = string.Empty;
@@ -21,5 +22,6 @@ namespace eLibrary.Models
         public int TotalCopies { get; set; }
         public int AvailableCopies { get; set; }
         public string? Shelf { get; set; } = string.Empty;
+        public DateTime AddedDate { get; set; } = DateTime.UtcNow;
     }
 }

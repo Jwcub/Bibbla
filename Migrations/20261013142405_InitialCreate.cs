@@ -33,6 +33,7 @@ namespace eLibrary.Migrations
                     BookId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     Age = table.Column<string>(type: "TEXT", nullable: true),
                     PublicationYear = table.Column<int>(type: "INTEGER", nullable: false),
                     Series = table.Column<string>(type: "TEXT", nullable: true),
@@ -41,7 +42,8 @@ namespace eLibrary.Migrations
                     Isbn = table.Column<string>(type: "TEXT", nullable: false),
                     TotalCopies = table.Column<int>(type: "INTEGER", nullable: false),
                     AvailableCopies = table.Column<int>(type: "INTEGER", nullable: false),
-                    Shelf = table.Column<string>(type: "TEXT", nullable: true)
+                    Shelf = table.Column<string>(type: "TEXT", nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
