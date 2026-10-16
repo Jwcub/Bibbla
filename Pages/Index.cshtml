@@ -5,46 +5,77 @@
 }
 
     <h1>Vad vill du läsa idag?</h1>
-    <label class="sr-only">Sök</label>
-
      <!-- Sökfält -->
-    <div class="relative w-full">
+    <form method="get">
+        <label class="sr-only">Sök</label>
 
-        <!-- Röstsökningsknapp -->
-        <button 
-            type="button" 
-            aria-label="Sök med röst"
-            class="absolute inset-y-0 left-0 flex items-center pl-3 text-text-muted hover:text-text-primary focus:outline-none focus:text-blue-500"
-        >
-        <!-- Mikrofon-ikon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m-4 0h8M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
-            </svg>
-        </button>
+        <div class="relative w-full">
 
-        <!-- Input-fältet (pl-10 ger plats åt vänsterknappen, pr-10 åt högerknappen) -->
-        <input 
-            type="search" 
-            id="book-search"
-            name="q" 
-            placeholder="Sök på titel, serie, författare eller ISBN" 
-            class="w-full rounded-md border border-border-subtle bg-bg-surface py-2 pl-10 pr-10 text-sm placeholder:text-text-muted focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-        />
+            <!-- Röstsökningsknapp -->
+            <button 
+                type="button" 
+                aria-label="Sök med röst"
+                class="absolute inset-y-0 left-0 flex items-center pl-3 text-text-muted hover:text-text-primary focus:outline-none focus:text-blue-500"
+            >
+            <!-- Mikrofon-ikon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m-4 0h8M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+                </svg>
+            </button>
 
-        <!-- Sökknapp (höger) -->
-        <button 
-            type="submit" 
-            aria-label="Sök"
-            class="absolute inset-y-1 right-1 flex items-center bg-primary rounded-md px-2 gap-2 text-text-muted hover:text-text-primary focus:outline-none focus:text-blue-500 cursor-pointer"
-        >
-            <!-- Förstoringsglas-ikon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+            <!-- Input-fältet -->
+            <input 
+                type="search" 
+                id="book-search"
+                name="query" 
+                placeholder="Sök på titel, serie, författare eller ISBN" 
+                class="w-full rounded-md border border-border-subtle bg-bg-surface py-2 pl-10 pr-10 text-sm placeholder:text-text-muted focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            />
 
-            <span>Sök</span>
-        </button>
-    </div>
+            <!-- Sökknapp (höger) -->
+            <button 
+                type="submit" 
+                aria-label="Sök"
+                class="absolute inset-y-1 right-1 flex items-center bg-primary rounded-md px-2 gap-2 text-text-muted hover:text-text-primary focus:outline-none focus:text-blue-500 cursor-pointer"
+            >
+                <!-- Förstoringsglas-ikon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+
+                <span>Sök</span>
+            </button>
+        </div>
+
+        <span>Sortera på:</span>
+
+        <!-- Filtrera på genre -->
+        <select name="genre">
+            <option value="">Alla genrer</option>
+            @foreach (var g in Model.AvailableGenres)
+            {
+                <option value="@g">@g</option>
+            }
+        </select>
+
+        <!-- Filtrera på ålder -->
+        <select name="age">
+            <option value="">Alla åldrar</option>
+            @foreach (var a in Model.AvailableAges)
+            {
+                <option value="@a">@a år</option>
+            }
+        </select>
+    </form>
+
+    @if (Model.SearchResults.Any())
+    {
+        <h2>Sökresultat</h2>
+        @foreach (var book in Model.SearchResults)
+        {
+            <p>@book.Title</p>
+        }
+    }
 
     <h2>Leta bland hyllorna</h2>
     <span>Äventyr</span> <span>Deckare</span> <span>Fantasy</span>
