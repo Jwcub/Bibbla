@@ -68,14 +68,40 @@
         </select>
     </form>
 
-    @if (Model.SearchResults.Any())
-    {
-        <h2>Sökresultat</h2>
-        @foreach (var book in Model.SearchResults)
+        @if (Model.SearchResults.Any())
         {
-            <p>@book.Title</p>
+            <h2 class="mb-6 text-2xl font-bold text-on-surface">Sökresultat</h2>
+            <section class="grid grid-cols-2 gap-4 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))] md:gap-8">
+                @foreach (var book in Model.SearchResults)
+                {
+                    <article class="w-full rounded-4xl bg-white p-6 md:max-w-75 shadow-md">
+                        <a asp-page="/Books" asp-route-title="@book.Title" class="block">
+                            <div class="aspect-2/3 w-full overflow-hidden rounded-sm bg-gray-100 mb-4">
+                                <img 
+                                    src="@book.CoverImage" 
+                                    alt="Omslag för @book.Title" 
+                                    class="h-full w-full object-cover" 
+                                    loading="lazy" 
+                                />
+                            </div>
+                            <div class="flex flex-1 flex-col justify-between">
+                                <div>
+                                    <h3 class="font-family text-xl font-bold text-on-surface line-clamp-2" title="@book.Title">
+                                        @book.Title
+                                    </h3>
+                                    <p class="mt-1 text-sm text-on-surface-variant line-clamp-1">
+                                        @(book.Authors.Any() 
+                                            ? string.Join(", ", book.Authors.Select(a => $"{a.FirstName} {a.LastName}")) 
+                                            : "Okänd författare")
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                }
+            </section>
         }
-    }
+
 
     <h2>Leta bland hyllorna</h2>
     <span>Äventyr</span> <span>Deckare</span> <span>Fantasy</span>
