@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
+@source "../../Pages";
+@source "../../Views";
+@source "../**/*.cshtml";
+
 @theme {
   /* ===== Färger: ytor och bakgrund ===== */
   --color-background: #fdf9f0;
   --color-on-surface: #1c1c17;
   --color-surface-container-low: #f7f3ea;
   --color-primary: #78ac79;
+  --color-hover: #ece8df;
+  --color-buttons: #78ac79;
 
   /* ===== Typografi ===== */
   --font-family: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -73,6 +79,9 @@
   --margin: 1.5rem;
   --gutter-desktop: 2rem;
   --margin-desktop: 3rem;
+
+  /* ===== Skugga ===== */
+  --shadow-soft: 0 1px 8px rgba(10, 10, 10, 0.04);
 }
 
 @layer base {

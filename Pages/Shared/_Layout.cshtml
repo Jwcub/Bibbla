@@ -7,22 +7,35 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/eLibrary.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 </head>
 <body class="min-h-screen flex flex-col bg-background">
-    <header class="w-full border-b border-outline-variant bg-surface">
+    <header class="w-full bg-surface bg-opacity-95 shadow-soft">
         <div class="max-w-container-max mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between md:grid md:grid-cols-3">
             
             <!-- Logotyp -->
-            <div class="text-on-surface flex items-center">
-                <span class="font-bold">Bibbla</span><span>&nbsp;| Bergaskolan</span>
-            </div>
+                <a href="/" class="flex items-center gap-2 text-on-surface hover:opacity-90 transition">
+                    <img 
+                        src="~/images/bibblalogo.svg" 
+                        asp-append-version="true" 
+                        alt="" 
+                        style="width: 36px; height: 36px; display: block;" 
+                    />
+
+                    <div class="text-on-surface font-family">
+                        <span class="font-bold text-lg">Bibbla</span>
+                        <span>&nbsp;| Bergaskolan</span>
+                    </div>
+                </a>
 
             <!-- Meny desktop -->
             <nav class="hidden md:flex md:justify-center">
-                <ul class="flex gap-6 text-on-surface font-medium whitespace-nowrap">
-                    <li><a asp-page="/Index" class="hover:text-teal-600 transition">Sök böcker</a></li>
-                    <li><a asp-page="/My-books" class="hover:text-primary transition">Mina böcker</a></li>
-                    <li><a asp-page="/My-Page" class="hover:text-primary transition">Min sida</a></li>
+                <ul class="flex gap-6 text-on-surface text-base font-family tracking-wide font-extrabold whitespace-nowrap">
+                   <li><a asp-page="/Index" class="px-3 py-2 rounded-md hover:bg-hover transition">Sök böcker</a></li>
+                    <li><a asp-page="/My-books" class="px-3 py-2 rounded-md hover:bg-hover transition">Mina böcker</a></li>
+                    <li><a asp-page="/My-Page" class="px-3 py-2 rounded-md hover:bg-hover transition">Min sida</a></li>
                 </ul>
             </nav>
 
@@ -50,7 +63,7 @@
                     {
                         <form method="post" asp-page="/Account/Logout" class="inline">
                             <button type="submit" 
-                                    class="rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
+                                    class="rounded-lg bg-buttons px-4 py-2 text-base font-medium text-on-surface transition hover:bg-hover">
                                 Logga ut
                             </button>
                         </form>
@@ -58,7 +71,7 @@
                     else
                     {
                         <a asp-page="/Account/Login" 
-                        class="rounded-lg bg-teal-600 px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700">
+                        class="rounded-lg bg-buttons px-4 py-2 text-base font-medium text-on-surface transition hover:bg-hover">
                             Logga in
                         </a>
                     }
@@ -70,7 +83,7 @@
         <div id="mobile-menu" class="hidden md:hidden border-t border-outline-variant bg-surface px-4 pt-3 pb-5 space-y-4">
             <nav>
                 <ul class="flex flex-col gap-3 text-base font-medium text-on-surface">
-                    <li><a asp-page="/Index" class="hover:text-teal-600 transition">Sök böcker</a></li>
+                    <li><a asp-page="/Index" class="hover:text-primary transition">Sök böcker</a></li>
                     <li><a asp-page="/My-books" class="hover:text-primary transition">Mina böcker</a></li>
                     <li><a asp-page="/My-Page" class="hover:text-primary transition">Min sida</a></li>
                 </ul>
@@ -81,7 +94,7 @@
                 {
                     <form method="post" asp-page="/Account/Logout" class="block">
                         <button type="submit" 
-                                class="w-full text-center rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
+                                class="w-full text-center rounded-lg bg-buttons px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
                             Logga ut
                         </button>
                     </form>
@@ -89,7 +102,7 @@
                 else
                 {
                     <a asp-page="/Account/Login" 
-                    class="block w-full text-center rounded-lg bg-teal-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700">
+                    class="block w-full text-center rounded-lg bg-buttons px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-hover">
                         Logga in
                     </a>
                 }
