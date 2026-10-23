@@ -85,5 +85,11 @@ public class IndexModel : PageModel
         {
             SearchResults = await searchQuery.ToListAsync();
         }
+
+        //Senaste 5 tillagda böckerna
+        LatestBooks = await _context.Books
+            .OrderByDescending(d => d.AddedDate)
+            .Take(5)
+            .ToListAsync();
     }
 }
