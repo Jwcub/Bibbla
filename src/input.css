@@ -10,6 +10,7 @@
   --color-on-surface: #1c1c17;
   --color-surface-container-low: #f7f3ea;
   --color-primary: #78ac79;
+  --color-secondary: #ffb800;
   --color-hover: #ece8df;
   --color-hover-green: #4c814d;
   --color-buttons: #78ac79;
@@ -38,7 +39,7 @@
   --headline-lg-mobile-line-height: 34px;
   --headline-lg-mobile-letter-spacing: 0px;
 
-  --headline-md-size: 24px;
+  --headline-md-size: 20px;
   --headline-md-weight: 700;
   --headline-md-line-height: 32px;
   --headline-md-letter-spacing: 0px;
@@ -78,7 +79,10 @@
   --margin-desktop: 3rem;
 
   /* ===== Skugga ===== */
-  --shadow-soft: 0 1px 8px rgba(10, 10, 10, 0.04);
+  --shadow-soft: 0 0 8px rgba(10, 10, 10, 0.04);
+
+  /* ===== Grid ===== */
+  --grid-template-columns-sidebar: 1fr 2fr;
 }
 
 @layer base {

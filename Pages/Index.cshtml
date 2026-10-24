@@ -65,7 +65,7 @@
                 @foreach (var book in Model.SearchResults)
                 {
                     <article class="w-full rounded-4xl bg-white p-6 md:max-w-75 shadow-md">
-                        <a asp-page="/Books" asp-route-title="@book.Title" class="block">
+                        <a href="/books/@book.BookId" class="block">
                             <div class="aspect-2/3 w-full overflow-hidden rounded-sm bg-gray-100 mb-4">
                                 <img 
                                     src="@book.CoverImage" 
@@ -124,7 +124,7 @@
             @foreach (var book in Model.LatestBooks)
                 {
                     <article class="group w-full flex-1 border border-container-low-border bg-white p-4 text-md rounded-2xl">
-                        <a asp-page="/Books" asp-route-title="@book.Title" class="block">
+                        <a href="/books/@book.BookId" class="block">
                             <div class="aspect-2/3 w-full overflow-hidden rounded-sm bg-gray-100">
                                 <img 
                                     src="@book.CoverImage" 

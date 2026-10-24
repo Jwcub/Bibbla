@@ -16,21 +16,16 @@ public class DetailsModel : PageModel
 
     public Book? Book { get; set; }
 
-    public async Task<IActionResult> OnGetAsync(string title)
+    public async Task<IActionResult> OnGetAsync(int BookId)
     {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            return NotFound();
-        }
-
         Book = await _context.Books
             .Include(b => b.Authors)
             .Include(b => b.Genres)
-            .FirstOrDefaultAsync(b => b.Title.ToLower() == title.ToLower());
+            .FirstOrDefaultAsync(b => b.BookId == BookId);
 
         if (Book == null)
         {
-            return NotFound();
+            return RedirectToPage("/404");
         }
 
         return Page();

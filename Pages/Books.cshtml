@@ -1,32 +1,70 @@
-﻿@page "/books/{title}"
+﻿@page "/books/{BookId:int}"
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model eLibrary.Pages.Books.DetailsModel
 @{
     ViewData["Title"] = Model.Book?.Title ?? "Bokdetaljer";
 }
 
-    @if (Model.Book == null)
-    {
-        <div class="rounded-xl border border-red-200 bg-red-50 p-6 text-center text-red-700">
-            Boken kunde inte hittas.
-        </div>
-    }
-    else
-    {
-                    <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+    <a href="" onClick="history.go(-1); return false;" class="flex gap-1 bg-hover self-start py-1 px-4 rounded-2xl hover:bg-secondary"> <img src="~/images/icons/arrow-left.svg" class="w-4 h-auto">Tillbaka till böcker</a>
+
+    <section class="grid grid-cols-1 md:grid-cols-sidebar gap-10 bg-white p-4 md:p-12 rounded-lg shadow-md">
+        @if (Model.Book == null)
+        {
+            @RedirectToPage("/404");
+        }
+        else
+        {
+            <div>
+                <img src=" @Model.Book.CoverImage" alt="Omslag @Model.Book.Title" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div>
+                    <h1 class="text-4xl font-bold tracking-tight">
                         @Model.Book.Title
                     </h1>
-                    
-                    <p class="text-lg text-slate-600 mt-1">
-                        av <span class="font-medium text-slate-800">@(Model.Book.Authors.Any()
+                </div>
+                
+                <div>
+                    @if (Model.Book.Series != null)
+                    {
+                        <strong>Del @Model.Book.SeriesOrder: @Model.Book.Series</strong>
+                    }
+                    <p>
+                        Av: @(Model.Book.Authors.Any()
                         ? string.Join(", ", Model.Book.Authors.Select(a => $"{a.FirstName} {a.LastName}"))
-                        : "Okänd författare")</span>
+                        : "Okänd författare")
                     </p>
+                </div>
 
-                        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                            Beskrivning
-                        </h2>
-                        <p class="mt-2 text-slate-700 leading-relaxed">
-                            @Model.Book.Description
-                        </p>
-    }
+                <div>
+                    <h2 class="text-xl mb-2">
+                        Vad handlar boken om?
+                    </h2>
+                    <p class="mt-2 mb-2 leading-relaxed">
+                        @Model.Book.Description
+                    </p>
+                </div>
+
+                <div>
+                    @foreach (var genre in Model.Book.Genres)
+                    {
+                        <button class="bg-hover px-4 py-2 rounded-md text-sm">@genre.Name</button>
+                    }
+                </div>
+
+                <div class="flex gap-2 items-center mt-4">
+                    @if (@Model.Book.AvailableCopies > 0)
+                    {
+                        <button class="bg-primary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover-green">Låna boken</button>
+                    } else
+                    {
+                        <button class="bg-secondary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover">Reservera</button>
+                    }
+
+                    <p>Antal tillgängliga: @Model.Book.AvailableCopies</p>
+                </div>
+            </div>
+        }
+    </section>
 
