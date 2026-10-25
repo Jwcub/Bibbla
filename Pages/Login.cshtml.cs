@@ -1,29 +1,83 @@
 using System.ComponentModel.DataAnnotations;
+using eLibrary.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore; 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace eLibrary.Pages
 {
     public class LoginModel : PageModel
     {
+        // Privat variabel för databaskoppling
+        private readonly AppDbContext _context;
+
+        // Konstruktorn för login
+        public LoginModel(AppDbContext context)
+        {
+            // Spara anslutning i privat variabel
+            _context = context;
+        }
+
         [BindProperty]
-        public Credential Credential { get; set; }
-        public void OnGet()
-        {
-        }
+        public LoginCredentials Credentials { get; set; } = new();
 
-        public void OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
+            // Vid fel, stanna kvar på sidan.
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            // Kontrollera om användare finns
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.UserName == Credentials.Username);
+
+            // Kontrollera att lösenordet är korrekt
+            if (user == null || user.PasswordHash != Credentials.Password)
+            {
+                ModelState.AddModelError(string.Empty, "Felaktigt användarnamn eller lösenord.");
+                return Page();
+            }
+
+            // Lagra information om användaren
+            var claims = new List<Claim>
+            {
+                // Sparar användarnamn så du kan visa det på sidan senare
+                new Claim(ClaimTypes.Name, user.UserName),
+
+                // Spara förnamn
+                new Claim(ClaimTypes.GivenName, user.FirstName),
+
+                // Användarens roll
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
             
-        }
-    }
+                // Sparar ID:t, vilket är praktiskt när du behöver slå upp saker i databasen
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()) 
+            };
 
-    public class Credential
-    {
-        [Required]
-        public string Username { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+            // ID för Cookie Authentication
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Användarobjektet för ID-kortet
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            // 5. Baka ihop och skicka inloggnings-cookien till webbläsaren
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, 
+                claimsPrincipal);
+
+            return RedirectToPage("/My-page");
+        }
+
+        // Hjälpklass för Credentials
+        public class LoginCredentials
+        {
+            public string Username { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+        }
     }
 }

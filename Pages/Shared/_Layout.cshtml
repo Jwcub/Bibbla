@@ -61,9 +61,12 @@
                 <div class="hidden md:block">
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
-                        <form method="post" asp-page="/Account/Logout" class="inline">
+                        @using System.Security.Claims
+                        <span class="mr-4">@User.FindFirst(ClaimTypes.GivenName)?.Value</span>
+                         
+                        <form method="post" asp-page="/Logout" class="inline">
                             <button type="submit" 
-                                    class="rounded-lg bg-buttons px-4 py-2 text-base font-medium text-white transition hover:bg-hover-green hover:text-white">
+                                    class="rounded-lg bg-buttons px-4 py-2 text-base font-medium text-white cursor-pointer transition hover:bg-hover-green hover:text-white">
                                 Logga ut
                             </button>
                         </form>

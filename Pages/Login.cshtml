@@ -9,21 +9,21 @@
     <p>Logga in med dina uppgifter för att låna och läsa.</p>
 
     <form method="post" class="flex flex-col mt-6">
-        <label for="username" asp-for="Credential.Username">Användarnamn</label>
+        <label for="username" asp-for="Credentials.Username">Användarnamn</label>
         <input 
             type="text"
             id="username"
-            name="username"
+            asp-for="Credentials.Username"
             required
             placeholder="Ditt användarnamn" 
             class="w-full rounded-2xl border border-container-low-border bg-white py-2 px-4 text-md placeholder:text-text-muted focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
         />
 
-        <label for="password" asp-for="Credential.Password">Lösenord</label>
+        <label for="password" asp-for="Credentials.Password">Lösenord</label>
         <input 
             type="password"
             id="password"
-            name="password"
+            asp-for="Credentials.Password"
             required
             placeholder="Ditt lösenord" 
             class="w-full rounded-2xl border border-container-low-border bg-white py-2 px-4 text-md placeholder:text-text-muted focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
@@ -31,4 +31,5 @@
 
         <button type="submit" class="bg-primary cursor-pointer" value="login">Logga in</button>
     </form>
+    <div asp-validation-summary="All" class="text-red-500 mb-4 font-bold"></div>
 </section>

@@ -374,7 +374,7 @@ namespace eLibrary.Data
                     UserName = "karber1",
                     FirstName = "Karin",
                     LastName = "Bergström",
-                    Role = UserRole.admin, // eller UserRole.Admin beroende på hur din enum är döpt
+                    Role = UserRole.admin,
                     Grade = null,
                     ClassLetter = null,
                     PasswordHash = "admin123"
@@ -386,7 +386,7 @@ namespace eLibrary.Data
                     UserName = "joheks1",
                     FirstName = "Johan",
                     LastName = "Ekström",
-                    Role = UserRole.teacher, // eller vad du har för lärarroll i enumen
+                    Role = UserRole.teacher,
                     Grade = null,
                     ClassLetter = null,
                     PasswordHash = "larare123"
