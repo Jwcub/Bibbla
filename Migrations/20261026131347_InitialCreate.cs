@@ -138,6 +138,7 @@ namespace eLibrary.Migrations
                     LoanId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false),
                     LoanDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DueDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ReturnedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -145,6 +146,12 @@ namespace eLibrary.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Loans", x => x.LoanId);
+                    table.ForeignKey(
+                        name: "FK_Loans_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Loans_Users_UserId",
                         column: x => x.UserId,
@@ -168,6 +175,12 @@ namespace eLibrary.Migrations
                 {
                     table.PrimaryKey("PK_Reservations", x => x.ReservationId);
                     table.ForeignKey(
+                        name: "FK_Reservations_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Reservations_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
@@ -186,9 +199,19 @@ namespace eLibrary.Migrations
                 column: "GenresGenreId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Loans_BookId",
+                table: "Loans",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Loans_UserId",
                 table: "Loans",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_BookId",
+                table: "Reservations",
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_UserId",
@@ -221,10 +244,10 @@ namespace eLibrary.Migrations
                 name: "Authors");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Users");

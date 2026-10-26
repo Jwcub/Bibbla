@@ -11,7 +11,7 @@ using eLibrary.Data;
 namespace eLibrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261013142405_InitialCreate")]
+    [Migration("20261026131347_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -146,6 +146,9 @@ namespace eLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("TEXT");
 
@@ -159,6 +162,8 @@ namespace eLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("LoanId");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("UserId");
 
@@ -184,6 +189,8 @@ namespace eLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ReservationId");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("UserId");
 
@@ -261,22 +268,38 @@ namespace eLibrary.Migrations
 
             modelBuilder.Entity("eLibrary.Models.Loan", b =>
                 {
+                    b.HasOne("eLibrary.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("eLibrary.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Book");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("eLibrary.Models.Reservation", b =>
                 {
+                    b.HasOne("eLibrary.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("eLibrary.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Book");
 
                     b.Navigation("User");
                 });

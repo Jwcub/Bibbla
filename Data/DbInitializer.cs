@@ -70,8 +70,8 @@ namespace eLibrary.Data
                     Age = "9-12",
                     CoverImage = "/images/covers/lejonhjarta.jpg",
                     Isbn = "9789129688313",
-                    TotalCopies = 3,
-                    AvailableCopies = 3,
+                    TotalCopies = 1,
+                    AvailableCopies = 1,
                     Shelf = "A",
                     AddedDate = DateTime.UtcNow.AddDays(-1),
                 },
@@ -118,7 +118,7 @@ namespace eLibrary.Data
                     Genres = new List<Genre> { adventure, graphicNovel },
                     Series = "Handbok för superhjältar",
                     SeriesOrder = 1,
-                    Age = "6–9",
+                    Age = "6-9",
                     CoverImage = "/images/covers/handboken.jpg",
                     Isbn = "9789129701388",
                     TotalCopies = 3,
@@ -135,7 +135,7 @@ namespace eLibrary.Data
                     Genres = new List<Genre> { adventure, historicalFiction },
                     Series = "Sally Jones",
                     SeriesOrder = 2,
-                    Age = "9–12",
+                    Age = "9-12",
                     CoverImage = "/images/covers/mordarensapa.jpg",
                     Isbn = "9789163877384",
                     TotalCopies = 2,
@@ -152,11 +152,11 @@ namespace eLibrary.Data
                     Genres = new List<Genre> { everydayLife, humour },
                     Series = "Tsatsiki",
                     SeriesOrder = 1,
-                    Age = "6–9",
+                    Age = "6-9",
                     CoverImage = "/images/covers/tsatsiki.jpg",
                     Isbn = "9789127057050",
-                    TotalCopies = 4,
-                    AvailableCopies = 4,
+                    TotalCopies = 1,
+                    AvailableCopies = 1,
                     Shelf = "C",
                     AddedDate = DateTime.UtcNow.AddDays(-10),
                 },
@@ -238,8 +238,8 @@ namespace eLibrary.Data
                     Age = "6–9",
                     CoverImage = "/images/covers/loranga.jpg",
                     Isbn = "9789129654486",
-                    TotalCopies = 3,
-                    AvailableCopies = 3,
+                    TotalCopies = 0,
+                    AvailableCopies = 0,
                     Shelf = "B",
                     AddedDate = DateTime.UtcNow.AddDays(-9),
                 },
@@ -355,10 +355,10 @@ namespace eLibrary.Data
                     Series = "Hedvig",
                     SeriesOrder = 1,
                     Age = "6–9",
-                    CoverImage = "/images/covers/hedvig.jpg",
+                    CoverImage = "",
                     Isbn = "9789127104600",
-                    TotalCopies = 3,
-                    AvailableCopies = 3,
+                    TotalCopies = 0,
+                    AvailableCopies = 0,
                     Shelf = "A",
                     AddedDate = DateTime.UtcNow.AddDays(-9),
                 }
@@ -378,18 +378,6 @@ namespace eLibrary.Data
                     Grade = null,
                     ClassLetter = null,
                     PasswordHash = "admin123"
-                },
-
-                // Lärare
-                new User
-                {
-                    UserName = "joheks1",
-                    FirstName = "Johan",
-                    LastName = "Ekström",
-                    Role = UserRole.teacher,
-                    Grade = null,
-                    ClassLetter = null,
-                    PasswordHash = "larare123"
                 },
 
                 // Elever
@@ -412,34 +400,57 @@ namespace eLibrary.Data
                     Grade = 8,
                     ClassLetter = "B",
                     PasswordHash = "elev123"
-                },
-                new User
-                {
-                    UserName = "sarnil1",
-                    FirstName = "Sara",
-                    LastName = "Nilsson",
-                    Role = UserRole.pupil,
-                    Grade = 9,
-                    ClassLetter = "A",
-                    PasswordHash = "elev123"
-                },
-                new User
-                {
-                    UserName = "omahas1",
-                    FirstName = "Omar",
-                    LastName = "Hassan",
-                    Role = UserRole.pupil,
-                    Grade = 9,
-                    ClassLetter = "C",
-                    PasswordHash = "elev123"
                 }
             };
 
-            // Spara data till databasen
-            await context.Books.AddRangeAsync(books);
-            await context.Users.AddRangeAsync(users);
-            await context.SaveChangesAsync();
+            // Spara böcker och användare
+            context.Books.AddRange(books);
+            context.Users.AddRange(users);
+            context.SaveChanges(); 
 
+            // 2. Skapa testlån
+            var loans = new List<Loan>
+            {
+                new Loan
+                {
+                    UserId = users[1].UserId, 
+                    BookId = books[0].BookId,
+                    LoanDate = DateTime.UtcNow.AddDays(-5),
+                    DueDate = DateTime.UtcNow.AddDays(25),
+                    ReturnedDate = null
+                },
+                new Loan
+                {
+                    UserId = users[2].UserId, 
+                    BookId = books[1].BookId,
+                    LoanDate = DateTime.UtcNow.AddDays(-40),
+                    DueDate = DateTime.UtcNow.AddDays(-10),
+                    ReturnedDate = null
+                },
+                new Loan
+                {
+                    UserId = users[1].UserId, 
+                    BookId = books[2].BookId, 
+                    LoanDate = DateTime.UtcNow.AddDays(-30),
+                    DueDate = DateTime.UtcNow,
+                    ReturnedDate = DateTime.UtcNow.AddDays(-2)
+                }
+            };
+            context.Loans.AddRange(loans);
+
+            var reservations = new List<Reservation>
+            {
+                new Reservation
+                {
+                    UserId = users[2].UserId,
+                    BookId = books[10].BookId,
+                    ResDate = DateTime.UtcNow.AddDays(-2)
+                }
+            };
+            context.Reservations.AddRange(reservations); 
+
+            // Spara lånen och reservationen till databasen
+            context.SaveChanges();
         }
     }
 }

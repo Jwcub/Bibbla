@@ -54,16 +54,31 @@
                 </div>
 
                 <div class="flex gap-2 items-center mt-4">
-                    @if (@Model.Book.AvailableCopies > 0)
+                    @if (@Model.Book.AvailableCopies > 0 && User.Identity != null && User.Identity.IsAuthenticated)
                     {
-                        <button class="bg-primary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover-green">Låna boken</button>
+                        <form method="post" asp-page-handler="Borrow">
+                            <input type="hidden" name="bookId" value="@Model.Book.BookId" />
+                            <button type="submit" class="bg-primary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover-green">
+                                Låna boken
+                            </button>
+                        </form>
+                    } else if (Model.Book.AvailableCopies == 0 && User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-page-handler="Reserve">
+                            <input type="hidden" name="bookId" value="@Model.Book.BookId" />
+                            <button type="submit" class="bg-secondary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover">
+                                Reservera boken
+                            </button>
+                        </form>
                     } else
                     {
-                        <button class="bg-secondary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover">Reservera</button>
+                        <a href="/Login" class="bg-primary px-4 py-2 rounded-md text-md font-bold text-white cursor-pointer hover:bg-hover-green">Logga in för att låna bok</a>
                     }
 
                     <p>Antal tillgängliga: @Model.Book.AvailableCopies</p>
+                    <div asp-validation-summary="ModelOnly" class="text-red-600 font-semibold mb-4"></div>
                 </div>
+                
             </div>
         }
     </section>

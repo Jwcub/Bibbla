@@ -1,10 +1,51 @@
 ﻿@page
 @model eLibrary.Pages.My_pageModel
 @{
-    ViewData["Title"] = "Mina sida";
+    ViewData["Title"] = "Min sida";
 }
 
-<div class="max-w-6xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold text-slate-800">Min sida</h1>
-    <p class="text-slate-500 mt-2">Här kommer mina lån och reservationer synas</p>
-</div>
+<h1>Min sida</h1>
+
+<section class="flex flex-col gap-4">
+    <h2 class="mb-0">Lånade böcker</h2>
+    @if (Model.ActiveLoans.Any())
+    {
+        @foreach (var loan in Model.ActiveLoans)
+        {
+            <article class="flex gap-10 overflow-hidden bg-white p-4 md:p-6 rounded-lg shadow-sm">
+                <div>
+                    <img src="@loan.Book.CoverImage" alt="Omslag för @loan.Book.Title" class="max-w-40 h-auto"/>
+                </div>
+                <div class="flex flex-col">
+                    <h3>@loan.Book.Title</h3>
+                    <span><strong>Lånades:</strong>@loan.LoanDate.ToShortDateString()</span>
+                    <span><strong>Återlämnas:</strong>@loan.DueDate.ToShortDateString()</span>
+                    <button class="self-start">Låna om</button>
+                </div>
+            </article>
+        }
+    }
+    else
+    {
+        <p class="text-gray-500">Du har inga pågående lån just nu.</p>
+    }
+
+<section>
+    <h2>Reserverade böcker</h2>
+    @if (Model.MyReservations.Any())
+    {
+        @foreach (var reservation in Model.MyReservations)
+        {
+            <article class="flex gap-10 overflow-hidden bg-white p-4 md:p-6 rounded-lg shadow-sm">
+                <div>
+                    <img src="@reservation.Book.CoverImage" alt="Omslag för @reservation.Book.Title" class="max-w-40 h-auto"/>
+                </div>
+                <div class="flex flex-col">
+                    <h3>@reservation.Book.Title</h3>
+                    <span><strong>Reserverades:</strong> @reservation.ResDate.ToShortDateString()</span>
+                    <span><strong>Kan hämtas ut:</strong> Nej</span>
+                </div>
+            </article>
+        }
+    }
+</section>

@@ -33,9 +33,17 @@
             <!-- Meny desktop -->
             <nav class="hidden md:flex md:justify-center">
                 <ul class="flex gap-6 text-on-surface text-base font-family tracking-wide font-extrabold whitespace-nowrap">
-                   <li><a asp-page="/Index" class="px-3 py-2 rounded-md hover:bg-hover transition">Sök böcker</a></li>
-                    <li><a asp-page="/My-books" class="px-3 py-2 rounded-md hover:bg-hover transition">Mina böcker</a></li>
-                    <li><a asp-page="/My-Page" class="px-3 py-2 rounded-md hover:bg-hover transition">Min sida</a></li>
+                    <li><a asp-page="/Index" class="px-3 py-2 rounded-md hover:bg-hover transition">Sök böcker</a></li>
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li><a asp-page="/Admin" class="px-3 py-2 rounded-md hover:bg-hover transition">Administration</a></li>
+                    }
+                    else
+                    {
+                       <li><a asp-page="/My-page" class="px-3 py-2 rounded-md hover:bg-hover transition">Min sida</a></li> 
+                    }
+                    
                 </ul>
             </nav>
 
@@ -87,8 +95,7 @@
             <nav>
                 <ul class="flex flex-col gap-3 text-base font-medium text-on-surface">
                     <li><a asp-page="/Index" class="hover:text-primary transition">Sök böcker</a></li>
-                    <li><a asp-page="/My-books" class="hover:text-primary transition">Mina böcker</a></li>
-                    <li><a asp-page="/My-Page" class="hover:text-primary transition">Min sida</a></li>
+                    <li><a asp-page="/My-page" class="hover:text-primary transition">Mina sida</a></li>
                 </ul>
             </nav>
 
