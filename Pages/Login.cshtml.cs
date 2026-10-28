@@ -70,7 +70,13 @@ namespace eLibrary.Pages
                 CookieAuthenticationDefaults.AuthenticationScheme, 
                 claimsPrincipal);
 
+            if (user.Role.ToString().ToLower() == "admin")
+            {
+                return RedirectToPage("/Admin");
+            } else
+            {
             return RedirectToPage("/My-page");
+            }
         }
 
         // Hjälpklass för Credentials

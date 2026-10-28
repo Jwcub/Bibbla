@@ -1,4 +1,43 @@
 ﻿@page
+@using eLibrary.Models
 @model eLibrary.Pages.AdminModel
 @{
+    ViewData["Title"] = "Admin";
 }
+
+<h1>Admin</h1>
+
+<section>
+    <h2>Utlånade böcker</h2>
+    <div class="w-full overflow-hidden rounded-2xl border border-container-low-border bg-white shadow-soft">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-container-low-border bg-surface-container-low text-xs font-semibold uppercase tracking-wider text-on-surface/70">
+                        <th scope="col" class="py-3.5 pl-6 pr-4">Titel</th>
+                        <th scope="col" class="px-4 py-3.5">Låntagare</th>
+                        <th scope="col" class="px-4 py-3.5">Lånades</th>
+                        <th scope="col" class="px-4 py-3.5">Återlämnas</th>
+                        <th scope="col" class="px-4 py-3.5">Status</th>
+                    </tr>
+                </thead>
+                <tbdoy class="divide-y divide-container-low-border/60 text-sm text-left">
+                    @if (Model.ActiveLoans.Any())
+                    {
+                        @foreach (var loan in Model.ActiveLoans)
+                        {
+                            <tr class="transition-colors hover:bg-hover/50">
+                                <td class="p-4">@loan.Book.Title</td>
+                                <td class="p-4">@loan.User.FirstName @loan.User.LastName</td>
+                                <td class="p-4">@loan.LoanDate.ToShortDateString()</td>
+                                <td class="p-4">@loan.DueDate.ToShortDateString()</td>
+                                <td class="p-4">@loan.Status</td>
+                            </tr>
+                        }
+                    }
+                </tbdoy>
+         </table>
+</section>
+
+<h2>Reserverade böcker</h2>
+<p>Titel | Bokad av | Reserverades | Bokens status </p>

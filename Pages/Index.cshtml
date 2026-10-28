@@ -38,7 +38,7 @@
 
             <!-- Filtrera på genre -->
             <label class="sr-only" for="genre">Välj genre:</label>
-            <select class="rounded-2xl border border-container-low-border bg-white py-2 px-2 text-md border-border-subtle bg-bg-surface text-sm text-text-primary focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" id="genre">
+            <select name="genre" class="rounded-2xl border border-container-low-border bg-white py-2 px-2 text-md border-border-subtle bg-bg-surface text-sm text-text-primary focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" id="genre">
                 <option value="">Alla genrer</option>
                 @foreach (var g in Model.AvailableGenres)
                 {
@@ -48,7 +48,7 @@
 
             <!-- Filtrera på ålder -->
             <label class="sr-only" for="age">Välj åldersgrupp:</label>
-            <select class="rounded-2xl border border-container-low-border bg-white py-2 px-2 text-md border-border-subtle bg-bg-surface text-sm text-text-primary focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" id="age">
+            <select name="age" class="rounded-2xl border border-container-low-border bg-white py-2 px-2 text-md border-border-subtle bg-bg-surface text-sm text-text-primary focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500" id="age">
                 <option value="">Alla åldrar</option>
                 @foreach (var a in Model.AvailableAges)
                 {
@@ -96,22 +96,22 @@
     <section>
         <h2 class="text-h2">Leta bland hyllorna</h2>
         <div class="flex w-full gap-10">
-            <a href="" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
+            <a href="/?genre=Äventyr" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
                 <img src="/images/icons/trees.svg" alt="" class="" />
                 <h3 class="text-lg line-clamp-2">Äventyr</h3>
             </a>
 
-            <a href="" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
+            <a href="/?genre=Deckare" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
                 <img src="/images/icons/hat-glasses.svg" alt="" class="" />
                 <h3 class="text-lg line-clamp-2">Deckare</h3>
             </a>
 
-            <a href="" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
+            <a href="/?genre=Fantasy" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
                 <img src="/images/icons/swords.svg" alt="" class="" />
                 <h3 class="text-lg line-clamp-2">Fantasy</h3>
             </a>
 
-            <a href="" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
+            <a href="/?genre=Humor" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
                 <img src="/images/icons/face-grinning.svg" alt="" class="" />
                 <h3 class="text-lg line-clamp-2">Humor</h3>
             </a>

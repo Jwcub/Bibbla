@@ -15,19 +15,21 @@ public class DetailsModel : PageModel
         _context = context;
     }
 
-    public Book? Book { get; set; }
+    public Book Book { get; set; } = null!;
 
-    public async Task<IActionResult> OnGetAsync(int BookId)
+    public async Task<IActionResult> OnGetAsync(int bookId)
     {
-        Book = await _context.Books
+        var fetchedBook = await _context.Books
             .Include(b => b.Authors)
             .Include(b => b.Genres)
-            .FirstOrDefaultAsync(b => b.BookId == BookId);
+            .FirstOrDefaultAsync(b => b.BookId == bookId);
 
-        if (Book == null)
+        if (fetchedBook == null)
         {
-            return RedirectToPage("/404");
+            return NotFound(); 
         }
+
+        Book = fetchedBook;
 
         return Page();
     }
@@ -93,7 +95,17 @@ public class DetailsModel : PageModel
             .AnyAsync(r => r.BookId == bookId && r.UserId == userId);
         if (alreadyReserved)
         {
-            ModelState.AddModelError(string.Empty, "Du har redan reserverat den här boken");
+            var fetchedBook = await _context.Books
+                .Include(b => b.Authors)
+                .Include(b => b.Genres)
+                .FirstOrDefaultAsync(b => b.BookId == bookId);
+
+            if (fetchedBook != null)
+            {
+                Book = fetchedBook;
+            }
+            
+            ModelState.AddModelError(string.Empty, "Du har redan reserverat den här boken.");
             return Page();
         }
 

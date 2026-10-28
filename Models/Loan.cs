@@ -15,5 +15,23 @@ namespace eLibrary.Models
         public DateTime LoanDate { get; set; } = DateTime.UtcNow;
         public DateTime DueDate { get; set; }
         public DateTime? ReturnedDate { get; set; }
-    }
+
+         public string Status
+        {
+            get
+            {
+                if (ReturnedDate.HasValue)
+                {
+                    return "Återlämnad";
+                }
+
+                if (DateTime.UtcNow > DueDate)
+                {
+                    return "Försenad";
+                }
+
+                return "Utlånad";
+            }
+        }
+    };
 }
