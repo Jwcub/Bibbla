@@ -28,9 +28,16 @@ namespace eLibrary.Pages
         {
             ActiveLoans = await _context.Loans
                 .Include(l => l.Book)
-                .Include(l => l.User) // <-- Lägg till denna!
+                .Include(l => l.User)
                 .Where(l => l.ReturnedDate == null)
                 .OrderBy(l => l.LoanDate)
+                .ToListAsync();
+
+            Reservations = await _context.Reservations
+                .Include(r => r.Book)
+                .Include(r => r.User)
+                .Where(r => r.ResStatus != ReservationStatus.Upphämtad || r.ResStatus != ReservationStatus.Avbruten)
+                .OrderBy(r => r.ResDate)
                 .ToListAsync();
         }
     }

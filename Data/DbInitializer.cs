@@ -377,7 +377,7 @@ namespace eLibrary.Data
                     Role = UserRole.admin,
                     Grade = null,
                     ClassLetter = null,
-                    PasswordHash = "admin123"
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123")
                 },
 
                 // Elever
@@ -389,7 +389,7 @@ namespace eLibrary.Data
                     Role = UserRole.pupil,
                     Grade = 7,
                     ClassLetter = "A",
-                    PasswordHash = "elev123"
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("elev123")
                 },
                 new User
                 {
@@ -399,7 +399,7 @@ namespace eLibrary.Data
                     Role = UserRole.pupil,
                     Grade = 8,
                     ClassLetter = "B",
-                    PasswordHash = "elev123"
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("elev456")
                 }
             };
 

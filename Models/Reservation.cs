@@ -8,10 +8,10 @@ namespace eLibrary.Models
 {
     public enum ReservationStatus
     {
-        Pending,
-        Ready,
-        Fulfilled,
-        Cancelled
+        Pågående,
+        Redo,
+        Upphämtad,
+        Avbruten
 
     }
     public class Reservation
@@ -22,6 +22,6 @@ namespace eLibrary.Models
         public int BookId { get; set; }
         public Book Book { get; set; } = null!;
         public DateTime ResDate { get; set; } = DateTime.UtcNow;
-        public ReservationStatus ResStatus { get; set; } = ReservationStatus.Pending;
+        public ReservationStatus ResStatus { get; set; } = ReservationStatus.Pågående;
     }
 }

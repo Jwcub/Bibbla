@@ -11,7 +11,7 @@ using eLibrary.Data;
 namespace eLibrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261026131347_InitialCreate")]
+    [Migration("20261029211855_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

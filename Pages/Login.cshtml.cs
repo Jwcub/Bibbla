@@ -37,9 +37,9 @@ namespace eLibrary.Pages
                 .FirstOrDefaultAsync(u => u.UserName == Credentials.Username);
 
             // Kontrollera att lösenordet är korrekt
-            if (user == null || user.PasswordHash != Credentials.Password)
+            if (user == null || !BCrypt.Net.BCrypt.Verify(Credentials.Password, user.PasswordHash))
             {
-                ModelState.AddModelError(string.Empty, "Felaktigt användarnamn eller lösenord.");
+                ModelState.AddModelError(string.Empty, "Felaktig e-post eller lösenord.");
                 return Page();
             }
 
