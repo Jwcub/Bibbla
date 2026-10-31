@@ -58,45 +58,54 @@
         </form>
     </section>
 
-        @if (Model.SearchResults.Any())
-        {
-            <h2 class="mb-6 text-2xl font-bold text-on-surface">Sökresultat</h2>
-            <section class="grid grid-cols-2 gap-4 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))] md:gap-8">
-                @foreach (var book in Model.SearchResults)
-                {
-                    <article class="w-full rounded-4xl bg-white p-6 md:max-w-75 shadow-md">
-                        <a href="/books/@book.BookId" class="block">
-                            <div class="aspect-2/3 w-full overflow-hidden rounded-sm bg-gray-100 mb-4">
-                                <img 
-                                    src="@book.CoverImage" 
-                                    alt="Omslag för @book.Title" 
-                                    class="h-full w-full object-cover" 
-                                    loading="lazy" 
-                                />
-                            </div>
-                            <div class="flex flex-1 flex-col justify-between">
-                                <div>
-                                    <h3 class="font-family text-xl font-bold text-on-surface line-clamp-2" title="@book.Title">
-                                        @book.Title
-                                    </h3>
-                                    <p class="mt-1 text-sm text-on-surface-variant line-clamp-1">
-                                        @(book.Authors.Any() 
-                                            ? string.Join(", ", book.Authors.Select(a => $"{a.FirstName} {a.LastName}")) 
-                                            : "Okänd författare")
-                                    </p>
+    @if (Model.HasSearched)
+    {
+        <h2 class="mb-2 text-2xl font-bold text-on-surface">Sökresultat för @Model.CurrentSearchWord</h2>
+            @if (Model.SearchResults.Any())
+             {
+                <section class="grid grid-cols-2 gap-4 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))] md:gap-8">
+                    @foreach (var book in Model.SearchResults)
+                    {
+                        <article class="w-full rounded-4xl bg-white p-6 md:max-w-75 shadow-md">
+                            <a href="/books/@book.BookId" class="block">
+                                <div class="aspect-2/3 w-full overflow-hidden rounded-sm bg-gray-100 mb-4">
+                                    <img 
+                                        src="@book.CoverImage" 
+                                        alt="Omslag för @book.Title" 
+                                        class="h-full w-full object-cover" 
+                                        loading="lazy" 
+                                    />
                                 </div>
-                            </div>
-                        </a>
-                    </article>
-                }
-            </section>
-        }
+                                <div class="flex flex-1 flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-family text-xl font-bold text-on-surface line-clamp-2" title="@book.Title">
+                                            @book.Title
+                                        </h3>
+                                        <p class="mt-1 text-sm text-on-surface-variant line-clamp-1">
+                                            @(book.Authors.Any() 
+                                                ? string.Join(", ", book.Authors.Select(a => $"{a.FirstName} {a.LastName}")) 
+                                                : "Okänd författare")
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    }
+                </section>
+            }
+            else
+            {
+                <p>Hittade ingen bok som passade din sökning.</p>
+            }
+
+            
+    }
 
 
     <section>
         <h2 class="text-h2">Leta bland hyllorna</h2>
-        <div class="flex w-full gap-10">
-            <a href="/?genre=Äventyr" class="flex flex-col items-center text-center flex-1 border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary">
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4 sm:gap-10 w-full">
+            <a href="/?genre=Äventyr" class="flex flex-col items-center text-center border border-container-low-border bg-white p-8 text-md rounded-2xl hover:bg-primary"">
                 <img src="/images/icons/trees.svg" alt="" class="" />
                 <h3 class="text-lg line-clamp-2">Äventyr</h3>
             </a>
@@ -120,7 +129,7 @@
 
     <section>
         <h2 class="text-h2">Nya böcker</h2>
-        <div class="flex gap-4">
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-5 sm:gap-10 w-full">
             @foreach (var book in Model.LatestBooks)
                 {
                     <article class="group w-full flex-1 border border-container-low-border bg-white p-4 text-md rounded-2xl">

@@ -27,7 +27,9 @@ public class IndexModel : PageModel
     // Egenskaper för utskrift av ålder och genre till HTML
     public List<string> AvailableGenres { get; set; } = new();
     public List<string> AvailableAges { get; set; } = new();
-    public bool HasSearched { get; set; }
+    public bool HasSearched { get; set; } = false;
+
+    public string CurrentSearchWord { get; set; } = "";
 
 
     public async Task OnGetAsync(string? query, string? age, string? genre)
@@ -55,6 +57,9 @@ public class IndexModel : PageModel
         // Kontrollera om sökfrasen innehåller titel, författare eller ISBN
         if (!string.IsNullOrWhiteSpace(query))
         {
+            HasSearched = true;
+            CurrentSearchWord = query;
+
             var sQuery = query.Trim();
             searchQuery = searchQuery.Where(b => 
                 b.Title.ToLower().Contains(sQuery.ToLower()) || 
