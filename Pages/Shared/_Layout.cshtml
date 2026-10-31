@@ -130,8 +130,21 @@
     </main>
    
     <footer class="bg-surface-container">
-        <div class="max-w-container-max mx-auto w-full bg-surface-container-low p6 sm:px-6 lg:px-8">
-            &copy; 2026 - eLibrary - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <div class="max-w-container-max w-full flex flex-col items-center justify-center gap-2 bg-surface-container-low p-8 sm:px-6 lg:px-8">
+            <span>&copy; 2026</span>
+            <span class="font-bold">Bergaskolan</span>
+            <a href="/" class="flex items-center gap-2 text-on-surface hover:opacity-90 transition">
+                <img 
+                    src="~/images/bibblalogo.svg" 
+                    asp-append-version="true" 
+                    alt="" 
+                    style="width: 36px; height: 36px; display: block;" 
+                />
+
+                <div class="text-on-surface font-family">
+                    <span class="font-bold text-lg">Bibbla</span>
+                </div>
+            </a>
         </div>
     </footer>
 
