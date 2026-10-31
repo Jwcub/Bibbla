@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,9 @@ namespace eLibrary.Models
         public DateTime LoanDate { get; set; } = DateTime.UtcNow;
         public DateTime DueDate { get; set; }
         public DateTime? ReturnedDate { get; set; }
+
+        [NotMapped]
+        public int DaysRemaining => (DueDate.Date - DateTime.Today).Days;
 
          public string Status
         {

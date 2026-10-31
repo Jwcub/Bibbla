@@ -16,11 +16,29 @@
                 <div>
                     <img src="@loan.Book.CoverImage" alt="Omslag för @loan.Book.Title" class="max-w-40 h-auto"/>
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-3">
                     <h3>@loan.Book.Title</h3>
-                    <span><strong>Lånades:</strong>@loan.LoanDate.ToShortDateString()</span>
-                    <span><strong>Återlämnas:</strong>@loan.DueDate.ToShortDateString()</span>
-                    <button class="self-start">Låna om</button>
+                    <span><strong>Lånades: </strong>@loan.LoanDate.ToShortDateString()</span>
+                    <div>
+                        <span><strong>Återlämnas: </strong>@loan.DueDate.ToShortDateString()</span>
+                        @if (loan.DaysRemaining > 0)
+                            {
+                                <span>(@loan.DaysRemaining dagar kvar)</span>
+                            }
+                        else if(loan.DaysRemaining == 0)
+                        {
+                            <span>(Ska lämnas tillbaka idag!)</span>
+                        }
+                        else
+                        {
+                            <span>(Försenad med @Math.Abs(loan.DaysRemaining) dagar!)</span>
+                        }
+                    </div>
+
+                    <form method="post">
+                        <button type="submit" asp-page-handler="Prolong" 
+                        asp-route-bookId="@loan.BookId" class="self-start bg-primary px-4 py-1 rounded-2xl cursor-pointer text-white hover:bg-hover-green">Låna om</button>
+                    </form>
                 </div>
             </article>
         }
@@ -49,3 +67,4 @@
         }
     }
 </section>
+
