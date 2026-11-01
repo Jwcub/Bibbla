@@ -66,7 +66,7 @@ namespace eLibrary.Pages
             // Användarobjektet för ID-kortet
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-            // 5. Baka ihop och skicka inloggnings-cookien till webbläsaren
+            // Baka ihop och skicka inloggnings-cookien till webbläsaren
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, 
                 claimsPrincipal);

@@ -30,7 +30,7 @@ public class IndexModel : PageModel
     public bool HasSearched { get; set; } = false;
     public string CurrentSearchWord { get; set; } = "";
 
-    // Hämta matchande bok vid sökning
+    // Sökfunktion
     public async Task OnGetAsync(string? query, string? age, string? genre)
     {
         // Hämta alla unika genrenamn sorterade i bokstavsordning
@@ -53,10 +53,9 @@ public class IndexModel : PageModel
             .Include(b => b.Genres)
             .AsQueryable();
         
-        // Kontrollera om sökfrasen innehåller titel, författare eller ISBN
+        // Kontrollera om sökfrasen innehåller titel, författare eller ISBN och gör sökning
         if (!string.IsNullOrWhiteSpace(query))
         {
-            HasSearched = true;
             CurrentSearchWord = query;
 
             var sQuery = query.Trim();
