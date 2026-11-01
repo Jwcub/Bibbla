@@ -39,6 +39,8 @@
                         <button type="submit" asp-page-handler="Prolong" 
                         asp-route-bookId="@loan.BookId" class="self-start bg-primary px-4 py-1 rounded-2xl cursor-pointer text-white hover:bg-hover-green">Låna om</button>
                     </form>
+
+                    <div asp-validation-summary="ModelOnly" class="text-red-700 font-bold mb-4"></div>
                 </div>
             </article>
         }

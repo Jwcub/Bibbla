@@ -7,7 +7,7 @@
 
 <h1>Admin</h1>
 
-<section>
+<section id="borrowBooks">
     <h2>Utlånade böcker</h2>
     <div class="w-full overflow-hidden rounded-2xl border border-container-low-border bg-white shadow-soft">
         <div class="overflow-x-auto">
@@ -21,7 +21,7 @@
                         <th scope="col" class="px-4 py-3.5">Status</th>
                     </tr>
                 </thead>
-                <tbdoy class="divide-y divide-container-low-border/60 text-sm text-left">
+                <tbody class="divide-y divide-container-low-border/60 text-sm text-left">
                     @if (Model.ActiveLoans.Any())
                     {
                         @foreach (var loan in Model.ActiveLoans)
@@ -36,10 +36,12 @@
                         }
                     }
                 </tbdoy>
-         </table>
+            </table>
+         </div>
+    </div>
 </section>
 
-<section>
+<section id="reservatedBook">
     <h2>Reserverade böcker</h2>
 
     <div class="w-full overflow-hidden rounded-2xl border border-container-low-border bg-white shadow-soft">
@@ -53,7 +55,7 @@
                         <th scope="col" class="px-4 py-3.5">Status</th>
                     </tr>
                 </thead>
-                <tbdoy class="divide-y divide-container-low-border/60 text-sm text-left">
+                <tbody class="divide-y divide-container-low-border/60 text-sm text-left">
                     @if (Model.Reservations.Any())
                     {
                         @foreach (var res in Model.Reservations)
@@ -68,9 +70,6 @@
                     }
                 </tbdoy>
             </table>
-</section>
-
-<section>
-    <h2>Lägg till bok</h2>
-    
+        </div>
+    </div>
 </section>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace eLibrary.Models
 {
+    // Klass för lån
     public class Loan
     {
         public int LoanId { get; set; }
@@ -17,10 +18,12 @@ namespace eLibrary.Models
         public DateTime DueDate { get; set; }
         public DateTime? ReturnedDate { get; set; }
 
+        // Räkna ut antal dagar kvar av lån
         [NotMapped]
         public int DaysRemaining => (DueDate.Date - DateTime.Today).Days;
 
-         public string Status
+        // Status på lån
+        public string Status
         {
             get
             {

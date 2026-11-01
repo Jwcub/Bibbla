@@ -10,13 +10,16 @@ public class DetailsModel : PageModel
 {
     private readonly AppDbContext _context;
 
+    // Konstruktor
     public DetailsModel(AppDbContext context)
     {
         _context = context;
     }
 
+    // Property för book
     public Book Book { get; set; } = null!;
 
+    // Hämta info om bok i databas
     public async Task<IActionResult> OnGetAsync(int bookId)
     {
         var fetchedBook = await _context.Books
@@ -34,6 +37,7 @@ public class DetailsModel : PageModel
         return Page();
     }
 
+    // Låna bok
     public async Task<IActionResult> OnPostBorrowAsync(int bookId)
     {
         //Hämta användarens Id
@@ -74,6 +78,7 @@ public class DetailsModel : PageModel
         return RedirectToPage("/My-page");
     }
 
+    // Reservera bok
     public async Task<IActionResult> OnPostReserveAsync(int bookId)
     {
         //Hämta användarens Id

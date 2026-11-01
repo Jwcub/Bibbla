@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eLibrary.Pages
 {
+    // Kontrollera att användaren är behörig
     [Authorize(Roles = "admin")]
     public class AdminModel : PageModel
     {
@@ -26,6 +27,7 @@ namespace eLibrary.Pages
 
         public async Task OnGetAsync()
         {
+            // Aktiva lån i systemet
             ActiveLoans = await _context.Loans
                 .Include(l => l.Book)
                 .Include(l => l.User)
@@ -33,6 +35,7 @@ namespace eLibrary.Pages
                 .OrderBy(l => l.LoanDate)
                 .ToListAsync();
 
+            // Aktiva reservationer i systemet
             Reservations = await _context.Reservations
                 .Include(r => r.Book)
                 .Include(r => r.User)

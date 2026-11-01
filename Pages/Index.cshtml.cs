@@ -28,10 +28,9 @@ public class IndexModel : PageModel
     public List<string> AvailableGenres { get; set; } = new();
     public List<string> AvailableAges { get; set; } = new();
     public bool HasSearched { get; set; } = false;
-
     public string CurrentSearchWord { get; set; } = "";
 
-
+    // Hämta matchande bok vid sökning
     public async Task OnGetAsync(string? query, string? age, string? genre)
     {
         // Hämta alla unika genrenamn sorterade i bokstavsordning

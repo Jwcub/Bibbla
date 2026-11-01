@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace eLibrary.Models
 {
+    // Klass för författare
     public class Author
     {
         public int AuthorId { get; set; }

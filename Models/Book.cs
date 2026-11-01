@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace eLibrary.Models
 {
+    // Klass för biblioteksbok
     public class Book
     {
         public int BookId { get; set; }

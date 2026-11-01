@@ -33,7 +33,7 @@
                     </div>
                 </a>
 
-            <!-- Meny desktop -->
+            <!-- Meny för desktop -->
             <nav class="hidden md:flex md:justify-center">
                 <ul class="flex gap-6 text-on-surface text-base font-bold font-family tracking-wide whitespace-nowrap">
                     <li><a asp-page="/Index" class=" px-3 py-2 rounded-md hover:bg-hover font-bold transition @(currentPage == "/Index" ? "bg-secondary font-semibold" : "")">Sök böcker</a></li>
@@ -98,24 +98,34 @@
             <nav>
                 <ul class="flex flex-col gap-3 text-base font-medium text-on-surface">
                     <li><a asp-page="/Index" class="hover:text-primary transition">Sök böcker</a></li>
-                    <li><a asp-page="/My-page" class="hover:text-primary transition">Mina sida</a></li>
+                    
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li><a asp-page="/Admin" class="hover:text-primary transition">Administration</a></li>
+                    }
+                    else
+                    {
+                       <li><a asp-page="/My-page" class="hover:text-primary transition">Mina sida</a></li>
+                    }
+
                 </ul>
             </nav>
 
+            <!-- Logga in/ut-knapp för mobil -->
             <div class="pt-3 border-t border-outline-variant">
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
-                    <form method="post" asp-page="/Account/Logout" class="block">
+                    <form method="post" asp-page="/Logout" class="block">
                         <button type="submit" 
-                                class="w-full text-center rounded-lg bg-buttons px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
+                                class="w-full text-center rounded-lg bg-buttons px-3 py-2 text-sm font-medium text-white transition hover:bg-hover-green">
                             Logga ut
                         </button>
                     </form>
                 } 
                 else
                 {
-                    <a asp-page="/Account/Login" 
-                    class="block w-full text-center rounded-lg bg-buttons px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-hover">
+                    <a asp-page="/Login" 
+                    class="block w-full text-center rounded-lg bg-buttons px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-hover-green">
                         Logga in
                     </a>
                 }
@@ -123,12 +133,14 @@
         </div>
     </header>
 
+    <!-- Sidans innehåll -->
      <main role="main" class="flex-1 p-2 sm:py-4 md:py-10">
         <div class="max-w-240 mx-auto w-full flex flex-col px-4 sm:px-6 lg:px-8 gap-5">
             @RenderBody()
         </div>
     </main>
    
+   <!-- Sidfot -->
     <footer class="bg-surface-container">
         <div class="max-w-container-max w-full flex flex-col items-center justify-center gap-2 bg-surface-container-low p-8 sm:px-6 lg:px-8">
             <span>&copy; 2026</span>

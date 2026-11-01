@@ -408,7 +408,7 @@ namespace eLibrary.Data
             context.Users.AddRange(users);
             context.SaveChanges(); 
 
-            // 2. Skapa testlån
+            // Skapa testlån
             var loans = new List<Loan>
             {
                 new Loan

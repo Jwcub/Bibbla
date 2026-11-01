@@ -2,12 +2,15 @@ using System;
 
 namespace eLibrary.Models;
 
+// Olika användare i systemet (inget stöd för teacher implementerat)
 public enum UserRole
     {
         pupil,
         teacher,
         admin
     }
+
+// Klass för användare
 public class User
 {
     public int UserId { get; set; }

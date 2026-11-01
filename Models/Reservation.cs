@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace eLibrary.Models
 {
+    // Status för reservation
     public enum ReservationStatus
     {
         Pågående,
@@ -14,6 +15,8 @@ namespace eLibrary.Models
         Avbruten
 
     }
+
+    // Klass för reservation
     public class Reservation
     {
         public int ReservationId { get; set; }
